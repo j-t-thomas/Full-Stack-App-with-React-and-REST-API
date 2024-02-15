@@ -5,7 +5,7 @@ import UserContext from '../context/UserContext';
 
 //COMPONENT
 const UserSignIn = () => {
-  const { actions } = useContext(UserContext);
+  const actions = useContext(UserContext);
 
   const navigate = useNavigate();
   const location = useLocation();

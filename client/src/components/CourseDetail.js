@@ -11,8 +11,9 @@ const CourseDetail = () => {
 
   const { id } = useParams();
   const navigate = useNavigate();
-  const { authUser } = useContext(UserContext);
-
+  const authUser = useContext(UserContext);
+  console.log(authUser);
+  
 //DATA FETCHING
   useEffect(() => {
     const fetchCourse = async () => {

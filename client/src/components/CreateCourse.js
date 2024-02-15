@@ -9,7 +9,8 @@ const CreateCourse  =  () => {
   // Creates a navigate function used to navigate to different pages.
   const navigate = useNavigate();
   // Authenticated user.
-  const { authUser } = useContext(UserContext);
+  const authUser = useContext(UserContext);
+  console.log(authUser);
   // States and Setter Functions
   const [course, setCourse] = useState({
     title: '',

@@ -8,7 +8,8 @@ import axios from 'axios';
 //COMPONENT
 const UpdateCourse = () => {
   // Authenticated user.
-  const { authUser } = useContext(UserContext);
+  const authUser = useContext(UserContext);
+  console.log(authUser);
 
   const [errors, setErrors] = useState([]);
   const [course, setCourse] = useState({
