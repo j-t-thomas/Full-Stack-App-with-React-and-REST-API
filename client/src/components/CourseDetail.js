@@ -8,11 +8,9 @@ import UserContext from '../context/UserContext';
 //COMPONENT
 const CourseDetail = () => {
   const [course, setCourse] = useState(null);
-
-  const { id } = useParams();
+  const id = useParams();
   const navigate = useNavigate();
   const authUser = useContext(UserContext);
-  console.log(authUser);
 
 //DATA FETCHING
   useEffect(() => {
@@ -29,43 +27,40 @@ const CourseDetail = () => {
 
 //EVENT HANDLERS
    // Event handler for the 'Delete' button.
-   const handleDelete = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await api(`/courses/${id}`, 'DELETE', course, authUser);
-      if (response.status === 204) {
-        console.log(`Your course '${course.title}' has been deleted!`);
-        navigate('/');
-      } else {
-        throw new Error();
-      }
-    } catch (error) {
-      console.log(error);
+   const handleDelete = async (event) => {
+    event.preventDefault();
+    const response = await api(`/courses/${id}`, 'DELETE', null, authUser);
+    if (response.status === 204) {
+        console.log(`Successfully deleted your course`)
+        navigate(`/`)
+    } else if (response.status === 500) {
+        navigate(`/error`);
     }
-  };
+    try {
+    } catch(error) {
+        console.log(error)
+        navigate('/error');
+    }
+}
 
 //PAGE RENDERING
-  if (course) {
     return (
       <main>
+        {course && (
         <div className='actions--bar'>
           <div className='wrap'>
-            {authUser && authUser.id === course.User.id ? (
+            {authUser && authUser.id === course.User?.id && (
               <>
                 <Link to={`/courses/${id}/update`} className='button'>Update Course</Link>
                 <Link to='/' className='button' onClick={handleDelete}>Delete Course</Link>
               </>
-            ) : (
-              <>
-              </>
             )}
-
-            <Link to={`/courses/${id}/update`}className='button' style={{ display: 'none' }}>Update Course</Link>
-            <Link to='/' className='button' onClick={handleDelete} style={{ display: 'none' }}>Delete Course</Link>
             <Link to='/' className='button button-secondary'>Return to List</Link>
           </div>
         </div>
-        <div className='wrap'>
+        )}
+        {course && (
+          <div className='wrap'>
           <h2>Course Detail</h2>
           <form>
             <div className='main--flex'>
@@ -79,7 +74,9 @@ const CourseDetail = () => {
               </div>
               <div>
                 <h3 className='course--detail--title'>Estimated Time</h3>
-                <p>{course.estimatedTime}</p>
+                <p>
+                  <Markdown>{course.estimatedTime}</Markdown>
+                </p>
                 <h3 className='course--detail--title'>Materials Needed</h3>
                 <ul className='course--detail--list'>
                   <Markdown>{course.materialsNeeded}</Markdown>
@@ -88,9 +85,10 @@ const CourseDetail = () => {
             </div>
           </form>
         </div>
+        )}
+      
       </main>
     );
   };
-};
 
 export default CourseDetail; 
