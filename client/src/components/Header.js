@@ -4,8 +4,7 @@ import UserContext from '../context/UserContext';
 
 //COMPONENT
 const Header = () => {
-  const authUser  = useContext(UserContext);
-  console.log(authUser);
+  const { authUser } = useContext(UserContext);
 
 //PAGE RENDERING
   return (
