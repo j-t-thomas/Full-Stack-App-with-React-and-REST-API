@@ -13,7 +13,7 @@ const CourseDetail = () => {
   const navigate = useNavigate();
   const authUser = useContext(UserContext);
   console.log(authUser);
-  
+
 //DATA FETCHING
   useEffect(() => {
     const fetchCourse = async () => {
@@ -73,7 +73,7 @@ const CourseDetail = () => {
                 <h3 className='course--detail--title'>Course</h3>
                 <h4 className='course--name'>{course.title}</h4>
                 <p>
-                  By {course.User.firstName} {course.User.lastName}
+                  By {course.User?.firstName} {course.User?.lastName}
                 </p>
                 <Markdown>{course.description}</Markdown>
               </div>
