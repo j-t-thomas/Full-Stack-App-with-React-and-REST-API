@@ -5,7 +5,7 @@ import UserContext from '../context/UserContext';
 
 //COMPONENT
 const UserSignIn = () => {
-  const actions = useContext(UserContext);
+  const { actions } = useContext(UserContext);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -18,6 +18,7 @@ const UserSignIn = () => {
 //EVENT HANDLERS
   // Event handler for form submission. 
   const handleSubmit = async (e) => {
+
     e.preventDefault();
     let from = '/';
     if (location.state) {
@@ -29,6 +30,7 @@ const UserSignIn = () => {
     };
     try {
       const user = await actions.signIn(credentials);
+      console.log(user);
       if (user) {
         navigate(from);
       } else {

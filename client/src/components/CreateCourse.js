@@ -8,7 +8,7 @@ import { api } from '../utils/apiHelper';
 const CreateCourse  =  () => {
   // Creates a navigate function used to navigate to different pages.
   const navigate = useNavigate();
-  const authUser = useContext(UserContext);
+  const { authUser } = useContext(UserContext);
   const [course, setCourse] = useState({
     title: '',
     description: '',
@@ -27,20 +27,14 @@ const CreateCourse  =  () => {
   // Event handler for form submission. 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
       const response = await api('/courses', 'POST', course, authUser);
       if (response.status === 201) {
         console.log(`Your new course '${course.title}' has been added!`);
         navigate('/');
-      } else if (response.status === 400) {
-        const data = await response.json();
-        setErrors(data.errors);
       } else {
-        throw new Error();
+        const errorsResponse = await response.json();
+        setErrors(errorsResponse.errors);
       }
-    } catch (error) {
-      console.log(error);
-    }
   };
     
   // Event handler for the 'Cancel' button.

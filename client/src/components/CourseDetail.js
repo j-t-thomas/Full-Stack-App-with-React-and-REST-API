@@ -8,10 +8,10 @@ import UserContext from '../context/UserContext';
 //COMPONENT
 const CourseDetail = () => {
   const [course, setCourse] = useState(null);
-  const id = useParams();
+  const { id } = useParams();
   const navigate = useNavigate();
-  const authUser = useContext(UserContext);
-
+  const { authUser } = useContext(UserContext);
+  
 //DATA FETCHING
   useEffect(() => {
     const fetchCourse = async () => {
@@ -49,7 +49,7 @@ const CourseDetail = () => {
         {course && (
         <div className='actions--bar'>
           <div className='wrap'>
-            {authUser && authUser.id === course.User?.id && (
+            {authUser && authUser.id === course[0].user?.id && (
               <>
                 <Link to={`/courses/${id}/update`} className='button'>Update Course</Link>
                 <Link to='/' className='button' onClick={handleDelete}>Delete Course</Link>
@@ -66,20 +66,18 @@ const CourseDetail = () => {
             <div className='main--flex'>
               <div>
                 <h3 className='course--detail--title'>Course</h3>
-                <h4 className='course--name'>{course.title}</h4>
+                <h4 className='course--name'>{course[0].title}</h4>
                 <p>
-                  By {course.User?.firstName} {course.User?.lastName}
+                  By {course[0].user?.firstName} {course[0].user?.lastName}
                 </p>
-                <Markdown>{course.description}</Markdown>
+                <Markdown>{course[0].description}</Markdown>
               </div>
               <div>
                 <h3 className='course--detail--title'>Estimated Time</h3>
-                <p>
-                  <Markdown>{course.estimatedTime}</Markdown>
-                </p>
+                  <Markdown>{course[0].estimatedTime}</Markdown>
                 <h3 className='course--detail--title'>Materials Needed</h3>
                 <ul className='course--detail--list'>
-                  <Markdown>{course.materialsNeeded}</Markdown>
+                  <Markdown>{course[0].materialsNeeded}</Markdown>
                 </ul>
               </div>
             </div>

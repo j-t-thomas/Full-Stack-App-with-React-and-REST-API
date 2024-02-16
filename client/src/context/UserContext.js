@@ -11,7 +11,7 @@ export const UserProvider = (props) => {
   const [authUser, setAuthUser] = useState(cookie ? JSON.parse(cookie) : null);
 
   const signIn = async (credentials) => {
-
+    console.log(credentials);
     const encodedCredentials = btoa(
       `${credentials.emailAddress}:${credentials.password}`
     );
@@ -32,7 +32,7 @@ export const UserProvider = (props) => {
 
       const user = await response.json();
       user.password = credentials.password;
-
+      console.log(user)
       setAuthUser(user);
       Cookies.set("authenticatedUser", JSON.stringify(user), { expires: 1 });
       return user;

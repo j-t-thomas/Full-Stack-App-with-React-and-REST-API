@@ -6,15 +6,14 @@ import UserContext from '../context/UserContext';
 
 //COMPONENT
 const UserSignUp = () => {
-  const actions = useContext(UserContext);
-
+  const { actions } = useContext(UserContext);
   const navigate = useNavigate();
+  const firstName = useRef('');
+  const lastName = useRef('');
+  const emailAddress = useRef('');
+  const password = useRef('');
 
   const [errors, setErrors] = useState([]);
-  const firstName = useRef(null);
-  const lastName = useRef(null);
-  const emailAddress = useRef(null);
-  const password = useRef(null);
 
 //EVENT HANDLERS
   // Event handler for form submission. 
@@ -26,6 +25,7 @@ const UserSignUp = () => {
       emailAddress: emailAddress.current.value,
       password: password.current.value
     }
+    console.log(user)
     try {
       const response = await api('/users', 'POST', user);
       if (response.status === 201) {
