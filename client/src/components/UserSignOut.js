@@ -5,14 +5,8 @@ import { Navigate } from 'react-router-dom';
 //COMPONENT
 const UserSignOut = () => {
   const { actions } = useContext(UserContext);
-    useEffect(() => {
-
-      if (actions && actions.signOut) {
-      actions.signOut(); 
-    }
-  }, [actions]);
-
-  return <Navigate to='/' replace />;
+  useEffect(() => actions.signOut());
+  return <Navigate to='/' replace />
 }
 
 export default UserSignOut;
