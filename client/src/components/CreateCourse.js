@@ -8,10 +8,7 @@ import { api } from '../utils/apiHelper';
 const CreateCourse  =  () => {
   // Creates a navigate function used to navigate to different pages.
   const navigate = useNavigate();
-  // Authenticated user.
   const authUser = useContext(UserContext);
-  console.log(authUser);
-  // States and Setter Functions
   const [course, setCourse] = useState({
     title: '',
     description: '',
@@ -75,7 +72,8 @@ const CreateCourse  =  () => {
                   <textarea id='materialsNeeded' onChange={handleInput} name='materialsNeeded' />
                 </div>
               </div>
-              <button className='button' type='submit'>Create Course</button><button className='button button-secondary' onClick={handleCancel}>Cancel</button>
+              <button className='button' type='submit'>Create Course</button>
+              <button className='button button-secondary' onClick={handleCancel}>Cancel</button>
             </form>
           </div>
         </main>
